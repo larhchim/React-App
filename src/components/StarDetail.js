@@ -27,27 +27,18 @@ export default function StarDetails() {
     const handleShow = () => setShow(true);
     const[modalval,setModalValue]=useState([]);
 
-React.useEffect(() => {
-  axios.get(localStorage.getItem("key")).then((response) => {
-    setPosting(response.data.starships);
-    setPost(response.data);
-  });
-}, []);
+    React.useEffect(() => {
+      axios.get(localStorage.getItem("key")).then((response) => {
+        setPosting(response.data.starships);
+        setPost(response.data);
+      });
+    }, []);
 
-console.log(star)
-/*
-React.useEffect(() => {
-    axios.all(star?.map((endpoint) => axios.get(endpoint))).then(
-      (data) =>  setAxiosMult(data) 
-    );
-}, []);*/
 
 
 const HandleClickAction = (event)=>{
   axios.get(event.currentTarget.value).then((response) => {
-    console.log("********+")
     console.log(response)
-    console.log("********+")
     setModalValue(response.data)
   });
   handleShow();
@@ -55,19 +46,13 @@ const HandleClickAction = (event)=>{
 
 const HandleRedict = (event)=>{
   axios.get(event.currentTarget.value).then((response) => {
-    console.log("********+")
     console.log(response)
     setPosting(response.data.starships);
     setPost(response.data);
-    console.log("********+")
     setModalValue(response.data)
   });
   handleClose();
 }
-
-   
-
-
 
   if (!starWars) return null;
 
@@ -95,35 +80,37 @@ const HandleRedict = (event)=>{
 
         <Paper elevation={3} style={paperStyledown}>
 
-<div><h3>Informations Details per person</h3></div>
-            <Table striped>
-                <tbody>
-                    <tr>
-                        <th>Name </th>
-                        <td>{starWars.name}</td>
-                    </tr>
-                    <tr>
-                        <th>Eye Color </th>
-                        <td>{starWars.eye_color}</td>
-                    </tr>
-                    <tr>
-                        <th>Birth Year </th>
-                        <td>{starWars.birth_year}</td>
-                    </tr>
-                    <tr>
-                        <th>Gender </th>
-                        <td>{starWars.gender}</td>
-                    </tr>
-                    <tr>
-                        <th>Ressource Creation Date </th>
-                        <td>{starWars.created}</td>
-                    </tr>
-                    <tr>
-                        <th>Ressource Edition Date </th>
-                        <td>{starWars.edited}</td>
-                    </tr>
-                </tbody>
-            </Table>
+        <div>
+          <h3>Informations Details per person</h3>
+        </div>
+        <Table striped>
+            <tbody>
+                <tr>
+                    <th>Name </th>
+                    <td>{starWars.name}</td>
+                </tr>
+                <tr>
+                    <th>Eye Color </th>
+                    <td>{starWars.eye_color}</td>
+                </tr>
+                <tr>
+                    <th>Birth Year </th>
+                    <td>{starWars.birth_year}</td>
+                </tr>
+                <tr>
+                    <th>Gender </th>
+                    <td>{starWars.gender}</td>
+                </tr>
+                <tr>
+                    <th>Ressource Creation Date </th>
+                    <td>{starWars.created}</td>
+                </tr>
+                <tr>
+                    <th>Ressource Edition Date </th>
+                    <td>{starWars.edited}</td>
+                </tr>
+            </tbody>
+        </Table>
 
         </Paper>
 

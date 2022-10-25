@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import { Container ,Paper,Button} from '@material-ui/core';
-import Table from 'react-bootstrap/Table';
 import axios from "axios";
-import Modal from 'react-bootstrap/Modal';
+
+  
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
+
 
 export default function Bonus() {
     const paperStyle={padding:'50px 20px', width:600,margin:"20px auto"}
@@ -26,30 +27,31 @@ export default function Bonus() {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const[modalval,setModalValue]=useState([]);
+    const[latitude,setLatitude]=useState();
+    const[longitude,setLongitude]=useState();
 
 
-    axios.get("http://api.open-notify.org/iss-now.json").then((response) => {
-        console.log("********+")
+    React.useEffect(() => {
+      axios.get("http://api.open-notify.org/iss-now.json").then((response) => {
+
         setModalValue(response.data.iss_position)
         console.log("latitude",modalval.latitude)
+        setLatitude(modalval.latitude)
         console.log("longitude",modalval.longitude)
-        console.log("********+")
-    });
-
-
-
-
-
-   
-
-
+        setLongitude(modalval.longitude)
+        
+     });
+        const ifameData=document.getElementById("iframeId")
+        ifameData.src=`https://maps.google.com/maps?q=${latitude},${longitude}&hl=es;&output=embed`
+  },);
 
 
 
   return (
-
     <Container>
-      Bonus
+        <div>
+           <iframe id="iframeId" height="500px" width="100%"></iframe>
+        </div>
     </Container>
   );
 }
